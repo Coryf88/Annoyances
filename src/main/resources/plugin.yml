@@ -1,0 +1,6 @@
+name: Annoyances
+main: com.coryf88.bukkit.annoyances.Annoyances
+version: ${project.version}
+description: Plugin for fixes for annoyances for your Bukkit server.
+author: Coryf88
+load: STARTUP

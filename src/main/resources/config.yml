@@ -1,0 +1,20 @@
+# http://dev.bukkit.org/server-mods/annoyances/pages/Configuration/
+
+EntityDrops: true
+MobAtkDist:
+  Enable: true
+  CreeperIgnite: 1.5
+  CreeperDefuse: 6.0
+  Zombie: 0.9
+  Spider: 1.6
+WheatBreed: true
+MeleeLegs: true
+DropBoats: true
+KickMTQ: false
+PressurePlateSounds: true
+DropSaddleOnDeath: true
+PigZombieAtk: false
+InfiniteWaterOnWater: false
+SpawnProtection: true
+CancelledTNT: true
+VanillaSpamKicking: true
