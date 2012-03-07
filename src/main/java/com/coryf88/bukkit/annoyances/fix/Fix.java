@@ -38,7 +38,7 @@ public abstract class Fix implements Listener {
 	protected Object getConfig(String name) {
 		if (name != null) {
 			String configName = this.getConfigName();
-			if (configName != null) return Annoyances.getInstance().config.get(configName + "." + name);
+			if (configName != null) return Annoyances.getInstance().getConfig().get(configName + "." + name);
 		}
 		return null;
 	}
@@ -55,7 +55,7 @@ public abstract class Fix implements Listener {
 	protected Object getConfig(String name, Object def) {
 		if (name != null) {
 			String configName = this.getConfigName();
-			if (configName != null) return Annoyances.getInstance().config.get(configName + "." + name, def);
+			if (configName != null) return Annoyances.getInstance().getConfig().get(configName + "." + name, def);
 		}
 		return null;
 	}
