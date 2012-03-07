@@ -15,19 +15,15 @@ public class Annoyances extends JavaPlugin {
 	public FileConfiguration config;
 
 	@Override
-	public void onLoad() {
-		if (Annoyances.instance != null) return;
-	}
-
-	@Override
 	public void onEnable() {
-		this.logger = this.getLogger();
-
-		Bukkit.class.getPackage().getImplementationVersion();
 		if (Annoyances.instance != null) {
 			this.setEnabled(false);
 			return;
 		}
+
+		this.logger = this.getLogger();
+
+		// Check compatibility
 		if (!Bukkit.getVersion().equals("git-Bukkit-1.1-R6-b1988jnks (MC: 1.1)")) {
 			this.logger.severe("Only compatible with CraftBukkit version git-Bukkit-1.1-R6-b1988jnks (MC: 1.1)");
 			this.setEnabled(false);
@@ -35,6 +31,7 @@ public class Annoyances extends JavaPlugin {
 		}
 
 		Annoyances.instance = this;
+
 		this.config = this.getConfig();
 		this.config.options().copyDefaults(true).copyHeader(true);
 		this.saveConfig();
@@ -46,7 +43,7 @@ public class Annoyances extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		if (Annoyances.instance != null) return;
+		if (!Annoyances.instance.equals(this)) return;
 
 		this.fixManager.disable();
 

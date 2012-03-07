@@ -26,6 +26,7 @@ public class OverrideMobLib {
 		EntityType parentType = OverrideMobLib.getClassParentType(clazz);
 		OverrideMobLib.overrideMobSpawner(clazz, parentType);
 		OverrideMobLib.overrideBiomeSpawn(clazz, parentType);
+		// TODO Handle non-natural cases. E.g. Plugin, Spawn egg, etc.
 
 		// Respawn all current mobs
 		for (World world : Bukkit.getServer().getWorlds()) {

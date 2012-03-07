@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public class OverrideMobReflection {
+	// Method
 	public static <T extends Object> T invokeDeclaredMethod(Class<T> returnType, Object obj, String methodName, Object... values) throws OverrideMobException {
 		return returnType.cast(OverrideMobReflection.invokeDeclaredMethod(obj, obj.getClass(), methodName, values));
 	}
@@ -31,6 +32,7 @@ public class OverrideMobReflection {
 		}
 	}
 
+	// Set Field
 	public static void setDeclaredField(Object obj, String fieldName, Object value) throws OverrideMobException {
 		OverrideMobReflection.setDeclaredField(obj, obj.getClass(), fieldName, value);
 	}
@@ -49,6 +51,7 @@ public class OverrideMobReflection {
 		}
 	}
 
+	// Get Field
 	public static <T extends Object> T getDeclaredField(Class<T> returnType, Object obj, String fieldName) throws OverrideMobException {
 		return returnType.cast(OverrideMobReflection.getDeclaredField(obj, obj.getClass(), fieldName));
 	}

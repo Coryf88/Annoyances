@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.coryf88</groupId>
   <artifactId>annoyances</artifactId>
-  <version>0.0.1-ALPHA</version>
+  <version>0.0.2-ALPHA</version>
   <name>Annoyances</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,7 +24,7 @@
                 <target>1.5</target>
             </configuration>
   		</plugin>
-  	</plugins>
+    </plugins>
   </build>
   <repositories>
     <repository>

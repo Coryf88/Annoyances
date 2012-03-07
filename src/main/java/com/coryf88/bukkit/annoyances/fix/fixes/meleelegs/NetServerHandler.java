@@ -41,8 +41,8 @@ public class NetServerHandler extends net.minecraft.server.NetServerHandler {
 		WorldServer worldserver = this.minecraftServer.getWorldServer(this.player.dimension);
 		Entity entity = worldserver.getEntity(packet7useentity.target);
 
-		//if (entity != null && this.player.g(entity) && this.player.i(entity) < 36.0D) { // Bukkit
-		if (entity != null && this.canSeeEntity(entity) && this.player.i(entity) < 36.0D) { // Modified
+		//if (entity != null && this.player.g(entity) && this.player.i(entity) < 36.0D) { // Original
+		if (entity != null && this.canSeeEntity(entity) && this.player.i(entity) < 36.0D) { // Annoyances
 			ItemStack itemInHand = this.player.inventory.getItemInHand(); // CraftBukkit
 			if (packet7useentity.action == 0) {
 				// CraftBukkit start
@@ -94,19 +94,20 @@ public class NetServerHandler extends net.minecraft.server.NetServerHandler {
 
 		// Copy all field values over to the new instance.
 		// Skip copying the following fields:
-		//  - private static Random k = new Random();
-		//  - public static Logger a = Logger.getLogger("Minecraft");
+		//  - public static Logger logger = Logger.getLogger("Minecraft");
+		//  - public NetworkManager networkManager;
 		//  - private MinecraftServer minecraftServer;
+		//  - private static Random k = new Random();
+		//  - public EntityPlayer player; // CraftBukkit - private -> public
 		//  - private final CraftServer server;
 		//  - private static final int PLACE_DISTANCE_SQUARED = 6 * 6;
-		//  - public NetworkManager networkManager;
-		//  - public EntityPlayer player; // CraftBukkit - private -> public
 		for (Field field : net.minecraft.server.NetServerHandler.class.getDeclaredFields()) {
 			int modifiers = field.getModifiers();
 			if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers)) {
 				continue;
 			}
-			if (field.getName().equals("minecraftServer") || field.getName().equals("networkManager") || field.getName().equals("player")) {
+			String fieldName = field.getName();
+			if (fieldName.equals("minecraftServer") || fieldName.equals("networkManager") || fieldName.equals("player")) {
 				continue;
 			}
 

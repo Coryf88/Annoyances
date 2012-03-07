@@ -26,33 +26,37 @@ public class WheatBreed extends Fix {
 			ItemStack holding = player.getItemInHand();
 			if (holding != null) {
 				CraftAnimals craftAnimal = (CraftAnimals)target;
-				try {
-					Method method = EntityAnimal.class.getDeclaredMethod("a", net.minecraft.server.ItemStack.class);
-					method.setAccessible(true);
-					if ((Boolean)method.invoke(craftAnimal.getHandle(), ((CraftItemStack)holding).getHandle())) {
-						if (!this.canBreed(craftAnimal)) {
-							event.setCancelled(true);
-						}
-					}
-				} catch (Exception e) {
-					throw new RuntimeException("Exception occured in WheatBreed fix", e);
+				if (this.isBreedingItem(holding, craftAnimal) && !this.canBreed(craftAnimal)) {
+					event.setCancelled(true);
 				}
 			}
 		}
 	}
 
-	private boolean canBreed(CraftAnimals target) {
-		// Don't need to check age here, since age is checked internally, but we check it anyway.
-		return this.getLove(target) == 0 && target.getAge() == 0;
+	// 1818, 1840, 1846, 1938, 1986, 1988: private boolean a(nms.ItemStack)
+	private boolean isBreedingItem(ItemStack itemstack, CraftAnimals craftAnimal) {
+		try {
+			Method method = EntityAnimal.class.getDeclaredMethod("a", net.minecraft.server.ItemStack.class);
+			method.setAccessible(true);
+			return (Boolean)method.invoke(craftAnimal.getHandle(), ((CraftItemStack)itemstack).getHandle());
+		} catch (Exception e) {
+			throw new RuntimeException("Exception occured in WheatBreed fix", e);
+		}
 	}
 
-	private int getLove(Animals target) {
+	private boolean canBreed(CraftAnimals craftAnimal) {
+		// Don't need to check age here, since age is checked internally, but we check it anyway.
+		return !this.inLoveMode(craftAnimal) && craftAnimal.getAge() == 0;
+	}
+
+	// 1818, 1840, 1846, 1938, 1986, 1988: private int love;
+	private boolean inLoveMode(CraftAnimals craftAnimal) {
 		try {
 			Field field = EntityAnimal.class.getDeclaredField("love");
 			field.setAccessible(true);
-			return field.getInt(((CraftAnimals)target).getHandle());
+			return field.getInt(craftAnimal.getHandle()) > 0;
 		} catch (Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
